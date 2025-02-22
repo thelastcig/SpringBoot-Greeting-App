@@ -1,6 +1,6 @@
 package com.greetings_app.service;
 import org.springframework.stereotype.Service;
-
+import java.util.Optional;
 import com.greetings_app.model.Greeting;
 import com.greetings_app.repository.GreetingRepository;
 
@@ -51,6 +51,12 @@ public class GreetingService {
         saveGreeting(message);
         return "{\"message\": \"" + message + "\"}";
     }
+    
+    //UC -5
+    public Optional<Greeting> findGreetingById(Long id) {
+        return greetingRepository.findById(id);
+    }
+
 
 
 }
