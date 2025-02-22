@@ -89,7 +89,7 @@ public class GreetingController {
         return greetingService.getAllGreetings();
     }
 
-    //UC-7 Ability for the Greeting App to Edit a Greeting Messages in the Repository
+    //UC-7 Ability for the Greeting App to Edit a Greeting Messages in the //UC-8Repository
     //curl -X PUT "http://localhost:8080/greetings/edit/2" --data-urlencode "message=Hello, Aryaman Sharma!"    @PutMapping("/edit/{id}")
     public ResponseEntity<?> updateGreeting(@PathVariable Long id, @RequestParam String message) {
         Optional<Greeting> updatedGreeting = greetingService.updateGreeting(id, message);
@@ -98,5 +98,14 @@ public class GreetingController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
    
+    //UC-8 Ability for the Greeting App to delete a Greeting Messages
+    //curl -X DELETE "http://localhost:8080/greetings/delete/1"
+    //Returns 200 OK if deleted successfully.
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteGreeting(@PathVariable Long id) {
+        return greetingService.deleteGreeting(id)
+                ? ResponseEntity.ok("Greeting deleted successfully!") 
+                : ResponseEntity.notFound().build();
+    }
     
 }
