@@ -46,6 +46,16 @@ public class GreetingController {
     public String getSimpleGreeting(){
         return greetingService.getSimpleGreeting();
     }
+
+    //UC-3 Ability for the Greeting App to give Greeting message
+
+    @GetMapping("/personalized")
+    public String getPersonalizedString(
+        @RequestParam(required = false) String firstName,
+        @RequestParam(required = false) String lastName){
+
+      return greetingService.getPersonalizedGreeting(firstName, lastName);
+    }
    
     
 }
