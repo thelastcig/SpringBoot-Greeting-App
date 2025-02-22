@@ -1,12 +1,16 @@
 package com.greetings_app.service;
 import org.springframework.stereotype.Service;
 
+import com.greetings_app.model.Greeting;
+import com.greetings_app.repository.GreetingRepository;
+
 @Service
 public class GreetingService {
+    //UC-2
     public String getSimpleGreeting(){
         return "{\"greetings\": \"Hello World\"}";
     }    
-
+    //UC-3
     public String getPersonalizedGreeting(String firstName, String lastName){
         if(firstName != null && lastName != null){
             return "{\"message\": \"Hello, " + firstName + " " + lastName + "!\"}";
@@ -18,4 +22,35 @@ public class GreetingService {
             return "{\"message\": \"Hello World\"}";
         }
     }
+
+    //UC-4
+
+    private final GreetingRepository greetingRepository;
+
+    public GreetingService(GreetingRepository greetingRepository) {
+        this.greetingRepository = greetingRepository;
+    }
+
+    public Greeting saveGreeting(String message) {
+        Greeting greeting = new Greeting(message);
+        return greetingRepository.save(greeting);
+    }
+
+    public String getPersonalizedGreetings(String firstName, String lastName) {
+        String message;
+        if (firstName != null && lastName != null) {
+            message = "Hello, " + firstName + " " + lastName + "!";
+        } else if (firstName != null) {
+            message = "Hello, " + firstName + "!";
+        } else if (lastName != null) {
+            message = "Hello, " + lastName + "!";
+        } else {
+            message = "Hello World";
+        }
+
+        saveGreeting(message);
+        return "{\"message\": \"" + message + "\"}";
+    }
+
+
 }
