@@ -63,4 +63,14 @@ public class GreetingService {
         return greetingRepository.findAll();
     }
 
+    //UC-7
+    public Optional<Greeting> updateGreeting(Long id, String newMessage) {
+        Optional<Greeting> existingGreeting = greetingRepository.findById(id);
+        if (existingGreeting.isPresent()) {
+            Greeting greeting = existingGreeting.get();
+            greeting.setMessage(newMessage);
+            return Optional.of(greetingRepository.save(greeting));
+        }
+        return Optional.empty();
+    }
 }

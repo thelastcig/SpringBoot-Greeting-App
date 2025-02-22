@@ -1,4 +1,5 @@
 package com.greetings_app.greeting_app;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 import com.greetings_app.model.Greeting;
@@ -86,6 +87,15 @@ public class GreetingController {
     @GetMapping("/all")
     public List<Greeting> getAllGreetings() {
         return greetingService.getAllGreetings();
+    }
+
+    //UC-7 Ability for the Greeting App to Edit a Greeting Messages in the Repository
+    //curl -X PUT "http://localhost:8080/greetings/edit/2" --data-urlencode "message=Hello, Aryaman Sharma!"    @PutMapping("/edit/{id}")
+    public ResponseEntity<?> updateGreeting(@PathVariable Long id, @RequestParam String message) {
+        Optional<Greeting> updatedGreeting = greetingService.updateGreeting(id, message);
+        return updatedGreeting
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
    
     
