@@ -1,6 +1,7 @@
 package com.greetings_app.greeting_app;
 import java.util.Map;
 import org.springframework.web.bind.annotation.*;
+import com.greetings_app.service.GreetingService;
 
 @RestController
 @RequestMapping("/greetings")
@@ -35,5 +36,16 @@ public class GreetingController {
             "DELETE: ", deleteGreeting()
         );
     }
+
+    //UC-2 Extend GreetingController to use Services Layer to get Simple Greeting message ”Hello World”
+    private final GreetingService greetingService;
+    public GreetingController(GreetingService greetingService){
+        this.greetingService = greetingService;
+    }
+    @GetMapping("/simple")
+    public String getSimpleGreeting(){
+        return greetingService.getSimpleGreeting();
+    }
+   
     
 }
