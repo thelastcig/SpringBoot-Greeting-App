@@ -1,6 +1,7 @@
 package com.greetings_app.service;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
+import java.util.List;
 import com.greetings_app.model.Greeting;
 import com.greetings_app.repository.GreetingRepository;
 
@@ -57,6 +58,9 @@ public class GreetingService {
         return greetingRepository.findById(id);
     }
 
-
+    //UC-6
+    public List<Greeting> getAllGreetings() {
+        return greetingRepository.findAll();
+    }
 
 }

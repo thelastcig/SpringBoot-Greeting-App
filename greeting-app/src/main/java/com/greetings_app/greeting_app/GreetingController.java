@@ -1,7 +1,6 @@
 package com.greetings_app.greeting_app;
-import java.util.Map;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
+import java.util.*;
 import com.greetings_app.model.Greeting;
 import com.greetings_app.service.GreetingService;
 
@@ -76,10 +75,17 @@ public class GreetingController {
     
     //First Save the id http://localhost:8080/greetings/personalized/save?firstName=sonu&lastName=sharma
     //then http://localhost:8080/greetings/1
-    
+
     @GetMapping("/{id}")
     public Optional<Greeting> getGreetingById(@PathVariable Long id) {
         return greetingService.findGreetingById(id);
+    }
+
+    //UC-6 Ability for the Greeting App to List all the Greeting Messages    
+    //http://localhost:8080/greetings/all
+    @GetMapping("/all")
+    public List<Greeting> getAllGreetings() {
+        return greetingService.getAllGreetings();
     }
    
     
